@@ -1,25 +1,27 @@
-import logo from './logo.svg';
-import './App.css';
-
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+import React, { Component } from 'react'
+import {connect} from 'react-redux'
+import {bindActionCreators} from '@reduxjs/toolkit'
+import * as AppAction from './store/Actions/App.action'
+import Header from './components/Header'
+import Main from './components/Main'
+import Footer from './components/Footer'
+class App extends Component {
+  render() {
+    // console.log('AppData',this.props)
+    return (
+      <section className='todoapp'>
+        <Header/>
+        <Main/>
+        <Footer/>
+      </section>
+    )
+  }
 }
 
-export default App;
+const mapStateToProps = (store) => ({
+  AppData: store.AppData
+})
+const mapDispatchToProps = (dispatch) => ({
+  ...bindActionCreators(AppAction,dispatch)
+})
+export default connect(mapStateToProps,mapDispatchToProps)(App)
